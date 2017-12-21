@@ -34,9 +34,6 @@ docker-php-ext-install -j$(nproc) gd
 docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 docker-php-ext-install -j$(nproc) ldap
 
-docker-php-ext-configure oci8 --with-oci8=shared,instantclient,/usr/lib/oracle/12.1/client/lib
-docker-php-ext-install -j$(nproc) oci8
-
 #to get around error that redis wasn't found
 pecl install -o -f redis
 
