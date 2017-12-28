@@ -3,10 +3,13 @@ services: docker
 install:
     - docker build -t moodle-php-apache .
 script:
-    - "docker run --name test0 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/html moodle-php-apache"
+    - "docker run -e --name test0 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/html moodle-php-apache"
     - docker exec test0 php /var/www/html/test.php
+    - curl --fail http://127.0.0.1:8000/test.php
+    - "docker run -e APACHE_WEB_ROOT="/var/www" --name test1 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/ moodle-php-apache"
+    - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8000/test.php
 after_failure:
     - docker logs test0
 after_script:
-    - docker rm -f test0
+    - docker rm -f test0 test1
