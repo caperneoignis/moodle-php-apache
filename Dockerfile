@@ -7,6 +7,8 @@ RUN chmod 777 /tmp && chmod +t /tmp
 RUN /tmp/setup/php-extensions.sh
 RUN /tmp/setup/oci8-extension.sh
 
+RUN apt-get install -y supervisor
+
 RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/phpunitdata && chown www-data /var/www/phpunitdata && \
     mkdir /var/www/behatdata && chown www-data /var/www/behatdata && \
@@ -14,3 +16,12 @@ RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
 
 #overwrite old config with custom config with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
+COPY files/supervisord.conf /etc/supervisord.conf
+
+COPY files/entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /etc/supervisord.conf && chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["bash"]
