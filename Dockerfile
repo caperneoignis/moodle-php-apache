@@ -2,7 +2,6 @@ FROM php:7.1-apache
 
 ADD root/ /
 
-RUN apt-get update && apt-get install -y supervisor --no-install-recommends
 
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp
