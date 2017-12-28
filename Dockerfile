@@ -2,9 +2,11 @@ FROM php:7.1-apache
 
 ADD root/ /
 
-
+RUN apt-get update && apt-get install supervisor -y --no-install-recommends
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
-RUN chmod 777 /tmp && chmod +t /tmp
+RUN chmod 777 /tmp && chmod +t /tmp 
+RUN chmod +x /tmp/setup/php-extensions.sh 
+RUN chmod +x /tmp/setup/oci8-extension.sh
 # Setup the required extensions.
 RUN /tmp/setup/php-extensions.sh
 RUN /tmp/setup/oci8-extension.sh
@@ -18,7 +20,7 @@ RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
 #overwrite old config with custom config with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-#COPY files/supervisord.conf /etc/supervisord.conf
+COPY files/supervisord.conf /etc/supervisord.conf
 
 COPY files/entrypoint.sh /entrypoint.sh
 
