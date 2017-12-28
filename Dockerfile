@@ -1,4 +1,5 @@
 FROM php:5.6-apache
+#adding default just incase this is added in to another image.
 ENV APACHE_WEB_ROOT="/var/www/html"
 ADD root/ /
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
