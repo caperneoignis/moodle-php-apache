@@ -18,11 +18,11 @@ RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
 #overwrite old config with custom config with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-COPY files/supervisord.conf /etc/supervisord.conf
+#COPY files/supervisord.conf /etc/supervisord.conf
 
 COPY files/entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /etc/supervisord.conf && chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 

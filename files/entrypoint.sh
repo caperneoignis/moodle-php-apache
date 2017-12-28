@@ -9,9 +9,8 @@ else
     #set a default if one is not present
     APACHE_WEB_ROOT="/var/www/html/"
     sed -i "s#<<APACHE_WEB_ROOT>>#${APACHE_WEB_ROOT}/#" /etc/apache2/sites-enabled/000-default.conf
-	/usr/sbin/apache2ctl restart && /usr/sbin/apache2ctl -DFOREGROUND
+	/usr/sbin/apache2 restart
 fi
-
 
 if [[ $# -eq 1 && $1 == "bash" ]]; then
     $@
