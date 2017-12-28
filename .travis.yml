@@ -1,7 +1,5 @@
 language: bash
 services: docker
-env:
-    - APACHE_WEB_ROOT=/var/www/html
 install:
     - docker build -t moodle-php-apache .
 script:
