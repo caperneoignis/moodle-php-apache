@@ -1,5 +1,5 @@
 FROM php:5.6-apache
-
+ENV APACHE_WEB_ROOT="/var/www/html"
 ADD root/ /
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp
