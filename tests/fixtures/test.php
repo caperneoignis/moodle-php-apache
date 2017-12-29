@@ -1,5 +1,4 @@
 <?php
-
 $requiredextensions = [
     'apcu',
     'gd',
@@ -7,18 +6,17 @@ $requiredextensions = [
     'intl',
     'ldap',
     'memcached',
+    'mssql',
     'mysqli',
     'oci8',
     'pgsql',
     'redis',
     'solr',
     'soap',
-    'sqlsrv',
     'xsl',
     'xmlrpc',
     'zip',
 ];
-
 $buffer = '';;
 $missing = [];
 foreach($requiredextensions as $ext) {
@@ -26,12 +24,10 @@ foreach($requiredextensions as $ext) {
         $missing[] = $ext;
     }
 }
-
 $locale = 'en_AU.UTF-8';
 if (setlocale(LC_TIME, $locale) === false) {
     $missing[] = $locale;
 }
-
 if (php_sapi_name() === 'cli') {
     if (empty($missing)) {
         echo "OK\n";

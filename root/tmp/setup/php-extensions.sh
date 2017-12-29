@@ -8,7 +8,7 @@ BUILD_PACKAGES="gettext libcurl4-openssl-dev libpq-dev libmysqlclient-dev liblda
     libxml2-dev libicu-dev libfreetype6-dev libjpeg62-turbo-dev libmemcached-dev \
     zlib1g-dev libpng12-dev unixodbc-dev"
 
-LIBS="locales libaio1 libcurl3 libgss3 libicu52 libmysqlclient18 libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc libmcrypt-dev"
+LIBS="libaio1 libcurl3 libgss3 libicu52 libmysqlclient18 libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc"
 
 apt-get update
 apt-get install -y --no-install-recommends $BUILD_PACKAGES $LIBS unzip ghostscript locales apt-transport-https
@@ -34,19 +34,21 @@ docker-php-ext-install -j$(nproc) gd
 docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 docker-php-ext-install -j$(nproc) ldap
 
-pecl install solr memcached redis apcu igbinary
-docker-php-ext-enable solr memcached redis apcu igbinary
+pecl install solr memcache redis mongodb igbinary apcu-4.0.11 memcached-2.2.0
+docker-php-ext-enable solr memcache memcached redis mongodb apcu igbinary
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
-# Install Microsoft depdencises for sqlsrv
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/debian/8/prod.list -o /etc/apt/sources.list.d/mssql-release.list
-apt-get update
-ACCEPT_EULA=Y apt-get install -y msodbcsql
+echo "Downloading freedts files"
+curl ftp://ftp.freetds.org/pub/freetds/stable/freetds-1.00.33.tar.gz -o /tmp/freetds-1.00.33.tar.gz
 
-pecl install sqlsrv-4.3.0
-docker-php-ext-enable sqlsrv
+echo "Building mssql extension"
+cd /tmp && tar -xvf freetds-1.00.33.tar.gz && cd freetds-1.00.33 \
+    && ./configure --with-unixodbc=/usr --sysconfdir=/etc/freetds --enable-sybase-compat \
+    && make -j$(nproc) \
+    && make install
+
+docker-php-ext-install -j$(nproc) mssql
 
 # Keep our image size down..
 pecl clear-cache
