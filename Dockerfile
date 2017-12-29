@@ -2,7 +2,6 @@ FROM php:7.1-apache
 
 ADD root/ /
 
-RUN apt-get update && apt-get install supervisor -y --no-install-recommends
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp 
 RUN chmod +x /tmp/setup/php-extensions.sh 
@@ -17,15 +16,18 @@ RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/behatdata && chown www-data /var/www/behatdata && \
     mkdir /var/www/behatfaildumps && chown www-data /var/www/behatfaildumps
 
-#overwrite old config with custom config with export Document root
+#overwrite old configs with custom configs with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-
-COPY files/supervisord.conf /etc/supervisord.conf
+COPY configs/apache2.conf /etc/apache2/apache2.conf
 
 COPY files/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
+
+ENTRYPOINT [ "/entrypoint.sh", "docker-php-entrypoint"]
+
+#set work directory to be the root system, since CI/CD like gitlab run from custom directory in build image. 
 WORKDIR /
 
-ENTRYPOINT [ "/entrypoint.sh", "bash"]
+CMD ["apache2-foreground"]
