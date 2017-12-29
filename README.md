@@ -32,6 +32,9 @@ To faciliate testing and easy setup the following directories are created and ow
 * `/var/www/behatdata`
 * `/var/www/behatfaildumps`
 
+# Upcoming
+Currently trying to implement php 7.2
+
 
 # See also
 This container is part of a set of containers for Moodle development, see also:
