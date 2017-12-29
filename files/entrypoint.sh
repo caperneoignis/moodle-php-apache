@@ -4,13 +4,11 @@ umask 022
 
 
 if [[ "${APACHE_WEB_ROOT}" != "" ]]; then
-    echo "we hit here"
-    sed -i "s#<<APACHE_WEB_ROOT>>#${APACHE_WEB_ROOT}/#" /etc/apache2/sites-enabled/000-default.conf
+    sed -i "s#<<APACHE_WEB_ROOT>>#${APACHE_WEB_ROOT}#" /etc/apache2/sites-enabled/000-default.conf
 else
-    echo "we hit else"
     #set a default if one is not present
     APACHE_ROOT="/var/www/html"
-    sed -i "s#<<APACHE_WEB_ROOT>>#${APACHE_ROOT}/#" /etc/apache2/sites-enabled/000-default.conf
+    sed -i "s#<<APACHE_WEB_ROOT>>#${APACHE_ROOT}#" /etc/apache2/sites-enabled/000-default.conf
 fi
 
 /usr/bin/supervisord -c /etc/supervisord.conf
