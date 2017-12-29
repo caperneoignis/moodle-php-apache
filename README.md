@@ -12,6 +12,7 @@ A Moodle PHP environment configured for Moodle development based on [Official PH
 | PHP 7.0 | 7.0 | [![Build Status](https://travis-ci.org/caperneoignis/moodle-php-apache.svg?branch=php70)](https://travis-ci.org/caperneoignis/moodle-php-apache)|
 |PHP 5.6 | 5.6 | [![Build Status](https://travis-ci.org/caperneoignis/moodle-php-apache.svg?branch=php56)](https://travis-ci.org/caperneoignis/moodle-php-apache)|
 
+
 # Example usage
 The following command will expose the current working directory on port 8080:
 ```bash
@@ -31,6 +32,9 @@ To faciliate testing and easy setup the following directories are created and ow
 * `/var/www/phpunitdata`
 * `/var/www/behatdata`
 * `/var/www/behatfaildumps`
+
+# Upcoming
+Currently trying to implement php 7.2
 
 
 # See also

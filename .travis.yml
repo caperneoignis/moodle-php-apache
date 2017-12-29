@@ -1,15 +1,23 @@
 language: bash
 services: docker
+env:
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache
 install:
-    - docker build -t moodle-php-apache .
+    - docker build -t $REPO .
+before_script:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 script:
-    - docker run --name test0 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/html moodle-php-apache
+    - docker run --name test0 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/html $REPO
     - docker exec test0 php /var/www/html/test.php
     - curl --fail http://127.0.0.1:8000/test.php
-    - docker run -e APACHE_WEB_ROOT=/var/www --name test1 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/ moodle-php-apache
+    #now run with environment variables, we should get the same type of test pass
+    - docker run --name test1 -d -e APACHE_WEB_ROOT -p 8001:80 -v $PWD/tests/fixtures:/var/www $REPO
     - docker exec test1 php /var/www/test.php
-    - curl --fail http://127.0.0.1:8000/test.php
+    - curl --fail http://127.0.0.1:8001/test.php
+    - docker tag $REPO $REPO:5.6 
 after_failure:
-    - docker logs test0
+    - docker logs test0 && docker logs test1
+after_success:
+  - docker push $REPO;
 after_script:
     - docker rm -f test0 test1
