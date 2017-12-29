@@ -1,5 +1,6 @@
 FROM php:7.1-apache
-
+#setting a default, just incase this image is used in another imge.
+ENV APACHE_WEB_ROOT="/var/www/html"
 ADD root/ /
 
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
@@ -14,7 +15,8 @@ RUN /tmp/setup/oci8-extension.sh
 RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/phpunitdata && chown www-data /var/www/phpunitdata && \
     mkdir /var/www/behatdata && chown www-data /var/www/behatdata && \
-    mkdir /var/www/behatfaildumps && chown www-data /var/www/behatfaildumps
+    mkdir /var/www/behatfaildumps && chown www-data /var/www/behatfaildumps && \
+    mkdir /tools_for_CI && chown www-data /tools_for_CI
 
 #overwrite old configs with custom configs with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
