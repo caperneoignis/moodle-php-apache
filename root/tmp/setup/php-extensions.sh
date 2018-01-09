@@ -37,8 +37,8 @@ docker-php-ext-install -j$(nproc) ldap
 #to get around error that redis wasn't found
 pecl install -o -f redis
 
-pecl install solr memcached apcu igbinary
-docker-php-ext-enable solr memcached redis apcu igbinary
+pecl install solr memcached apcu igbinary xdebug
+docker-php-ext-enable solr memcached redis apcu igbinary xdebug
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
