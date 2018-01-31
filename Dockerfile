@@ -8,7 +8,7 @@ RUN chmod 777 /tmp && chmod +t /tmp
 RUN chmod +x /tmp/setup/php-extensions.sh 
 RUN chmod +x /tmp/setup/oci8-extension.sh
 
-RUN apt-get update && apt-get install -y git --no-install-recommends
+RUN apt-get update && apt-get install -y ssh git --no-install-recommends
 
 # Setup the required extensions.
 RUN /tmp/setup/php-extensions.sh
