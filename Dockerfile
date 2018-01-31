@@ -8,7 +8,7 @@ RUN chmod 777 /tmp && chmod +t /tmp
 RUN /tmp/setup/php-extensions.sh
 RUN /tmp/setup/oci8-extension.sh
 
-apt-get update && apt-get install -y sudo git --no-install-recommends
+RUN apt-get update && apt-get install -y sudo git --no-install-recommends
 
 RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/phpunitdata && chown www-data /var/www/phpunitdata && \
