@@ -1,5 +1,7 @@
 language: bash
 services: docker
+env:
+  - REPO=caperneoignis/moodle_php_apache
 install:
     - docker build -t moodle-php-apache .
 script:
@@ -9,7 +11,11 @@ script:
     - docker run -e APACHE_WEB_ROOT=/var/www --name test1 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/ moodle-php-apache
     - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8000/test.php
+    - docker tag $REPO $REPO:$TRAVIS_BRANCH
 after_failure:
     - docker logs test0
 after_script:
     - docker rm -f test0 test1
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker push $REPO;
