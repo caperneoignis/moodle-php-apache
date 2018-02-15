@@ -11,7 +11,7 @@ script:
     - docker run -e APACHE_WEB_ROOT=/var/www --name test1 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/ moodle-php-apache
     - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8000/test.php
-    - docker tag $REPO $REPO:$TRAVIS_BRANCH
+    - docker tag $REPO $REPO:7.2
 after_failure:
     - docker logs test0
 after_script:
