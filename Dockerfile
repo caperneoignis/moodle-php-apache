@@ -9,8 +9,8 @@ RUN /tmp/setup/php-extensions.sh
 RUN /tmp/setup/oci8-extension.sh
 
 RUN apt-get update && apt-get install -y sudo curl git graphviz --no-install-recommends
-RUN curl -SsO https://github.com/jgm/pandoc/releases/download/2.1.2/pandoc-2.1.2-1-amd64.deb
-RUN dpkg -i pandoc-2.1.2-1-amd64.deb && rm -rf pandoc-2.1.2-1-amd64.deb
+RUN curl -SsO https://github.com/jgm/pandoc/releases/download/2.1.2/pandoc-2.1.2-linux.tar.gz
+RUN tar xvzf pandoc-2.1.2-linux.tar.gz --strip-components 1 -C /usr/local/ && rm -rf pandoc-2.1.2-linux.tar.gz
 RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/phpunitdata && chown www-data /var/www/phpunitdata && \
     mkdir /var/www/behatdata && chown www-data /var/www/behatdata && \
