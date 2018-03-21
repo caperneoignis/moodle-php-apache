@@ -2,11 +2,12 @@ language: bash
 services: docker
 env:
     - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=latest_xdebug
-    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=latest XDEBUG=""
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=latest
 install:
     - docker build -t $REPO .
 before_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - if [[ "$TAG" != *"_xdebug" ]]; then export XDEBUG=""; fi
 script:
     - docker run --name test0 -d -p 8000:80 -v $PWD/tests/fixtures:/var/www/html $REPO
     - docker exec test0 php /var/www/html/test.php
