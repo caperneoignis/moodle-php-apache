@@ -3,11 +3,12 @@ FROM php:7.2-apache
 ADD root/ /
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp
+RUN apt-get update && apt-get install -y git --no-install-recommends
 # Setup the required extensions.
 RUN /tmp/setup/php-extensions.sh
 RUN /tmp/setup/oci8-extension.sh
 
-RUN apt-get update && apt-get install -y git --no-install-recommends
+
 
 RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/phpunitdata && chown www-data /var/www/phpunitdata && \
