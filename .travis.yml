@@ -8,11 +8,11 @@ install:
 before_script:
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 script:
-    - docker run --name test0 -d -p 8000:80 -e $XDEBUG -v $PWD/tests/fixtures:/var/www/html $REPO
+    - docker run --name test0 -d -p 8000:80 -e XDEBUG=$XDEBUG -v $PWD/tests/fixtures:/var/www/html $REPO
     - docker exec test0 php /var/www/html/test.php
     - curl --fail http://127.0.0.1:8000/test.php
     #now run with environment variables, we should get the same type of test pass
-    - docker run --name test1 -d -e APACHE_WEB_ROOT -e $XDEBUG -p 8001:80 -v $PWD/tests/fixtures:/var/www $REPO
+    - docker run --name test1 -d -e APACHE_WEB_ROOT -e XDEBUG=$XDEBUG -p 8001:80 -v $PWD/tests/fixtures:/var/www $REPO
     - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8001/test.php
     - docker tag $REPO $REPO:$TAG 
