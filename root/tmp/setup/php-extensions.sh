@@ -53,7 +53,7 @@ echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/debian/9/prod.list -o /etc/apt/sources.list.d/mssql-release.list
 apt-get update
-ACCEPT_EULA=Y apt-get install -y msodbcsql
+ACCEPT_EULA=Y apt-get install -y msodbcsql17
 
 pecl install sqlsrv-4.3.0
 docker-php-ext-enable sqlsrv
