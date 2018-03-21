@@ -11,7 +11,7 @@ BUILD_PACKAGES="gettext libcurl4-openssl-dev libpq-dev default-libmysqlclient-de
 LIBS="locales libaio1 libcurl3 libgss3 libicu52 libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc libmcrypt-dev"
 
 #We need to fix zend global issue, so we are going to download from source.
-git https://github.com/php/pecl-search_engine-solr.git /usr/src/php/ext/solr
+git clone https://github.com/php/pecl-search_engine-solr.git /usr/src/php/ext/solr
 
 apt-get update
 
