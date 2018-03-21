@@ -4,13 +4,19 @@ set -e
 
 echo "Installing apt depdencies"
 
-BUILD_PACKAGES="gettext libcurl4-openssl-dev libpq-dev libmysqlclient-dev libldap2-dev libxslt-dev \
+BUILD_PACKAGES="gettext libcurl4-openssl-dev libpq-dev default-libmysqlclient-dev libldap2-dev libxslt-dev \
     libxml2-dev libicu-dev libfreetype6-dev libjpeg62-turbo-dev libmemcached-dev \
-    zlib1g-dev libpng12-dev unixodbc-dev"
-
-LIBS="locales libaio1 libcurl3 libgss3 libicu52 libmysqlclient18 libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc libmcrypt-dev"
+    zlib1g-dev libpng++-dev unixodbc-dev"
+#Removed libmysqlclient18 from LIBS because it is not available in stretch.
+LIBS="locales libaio1 libcurl3 libgss3 libicu52 libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc libmcrypt-dev"
 
 apt-get update
+
+#Need to curl download lib file for dependencies.
+curl -o libmysqlclient18.deb http://security.debian.org/debian-security/pool/updates/main/m/mysql-5.5/libmysqlclient18_5.5.59-0+deb7u1_armhf.deb
+dpkg --install libmysqlclient18
+
+#Now to do the normal install process.
 apt-get install -y --no-install-recommends $BUILD_PACKAGES $LIBS unzip ghostscript locales apt-transport-https
 echo 'Generating locales..'
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
@@ -39,14 +45,14 @@ docker-php-ext-enable solr memcached redis apcu igbinary
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
-# Install Microsoft depdencises for sqlsrv
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/debian/8/prod.list -o /etc/apt/sources.list.d/mssql-release.list
-apt-get update
-ACCEPT_EULA=Y apt-get install -y msodbcsql
+# Install Microsoft depdencises for sqlsrv. Don't need this so we are commenting out.
+#curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+#curl https://packages.microsoft.com/config/debian/8/prod.list -o /etc/apt/sources.list.d/mssql-release.list
+#apt-get update
+#ACCEPT_EULA=Y apt-get install -y msodbcsql
 
-pecl install sqlsrv-4.3.0
-docker-php-ext-enable sqlsrv
+#pecl install sqlsrv-4.3.0
+#docker-php-ext-enable sqlsrv
 
 # Keep our image size down..
 pecl clear-cache
