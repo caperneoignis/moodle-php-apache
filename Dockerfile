@@ -6,7 +6,8 @@ RUN chmod 777 /tmp && chmod +t /tmp
 RUN apt-get update && apt-get install -y git --no-install-recommends
 # Setup the required extensions.
 RUN /tmp/setup/php-extensions.sh
-RUN /tmp/setup/oci8-extension.sh
+#until we fix oci8 extestion we are removing it till we figure out what is causing it to fail to load.
+#RUN /tmp/setup/oci8-extension.sh
 
 
 
