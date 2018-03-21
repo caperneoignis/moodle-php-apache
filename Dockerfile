@@ -1,6 +1,8 @@
 FROM php:7.2-apache
 
 ADD root/ /
+
+ARG XDEBUG=""
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp
 RUN apt-get update && apt-get install -y git --no-install-recommends
