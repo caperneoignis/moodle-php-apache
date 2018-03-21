@@ -1,6 +1,9 @@
 FROM php:5.6-apache
 
 ADD root/ /
+
+ARG XDEBUG_STRING=""
+ARG XDEBUG=""
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp
 # Setup the required extensions.
