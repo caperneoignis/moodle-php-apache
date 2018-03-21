@@ -1,5 +1,6 @@
 <?php
-
+// removed oci8 from required extension due to php7.2/debian 9 conflict
+//'oci8',
 $requiredextensions = [
     'apcu',
     'gd',
@@ -8,7 +9,6 @@ $requiredextensions = [
     'ldap',
     'memcached',
     'mysqli',
-    'oci8',
     'pgsql',
     'redis',
     'solr',
