@@ -49,7 +49,7 @@ docker-php-ext-enable memcached redis apcu igbinary
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
-# Install Microsoft depdencises for sqlsrv. Don't need this so we are commenting out.
+# Install Microsoft dependences for sqlsrv. Don't need this so we are commenting out.
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/debian/9/prod.list -o /etc/apt/sources.list.d/mssql-release.list
 apt-get update
