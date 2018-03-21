@@ -20,7 +20,7 @@ echo "deb http://security.debian.org/debian-security jessie/updates main" >> /et
 apt-get update
 apt-get install -y --no-install-recommends libmysqlclient18
 #Now to do the normal install process.
-apt-get install -y --no-install-recommends $BUILD_PACKAGES $LIBS unzip ghostscript locales apt-transport-https
+apt-get install -y --no-install-recommends $BUILD_PACKAGES $LIBS unzip ghostscript locales apt-transport-https gnupg2
 echo 'Generating locales..'
 echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 echo 'en_AU.UTF-8 UTF-8' >> /etc/locale.gen
@@ -51,7 +51,7 @@ echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
 # Install Microsoft depdencises for sqlsrv. Don't need this so we are commenting out.
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/debian/8/prod.list -o /etc/apt/sources.list.d/mssql-release.list
+curl https://packages.microsoft.com/config/debian/9/prod.list -o /etc/apt/sources.list.d/mssql-release.list
 apt-get update
 ACCEPT_EULA=Y apt-get install -y msodbcsql
 
