@@ -1,8 +1,8 @@
 language: bash
 services: docker
 env:
-    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=latest_xdebug
-    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=latest XDEBUG=""
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=7.2_xdebug
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=7.2 XDEBUG=""
 install:
     - docker build -t $REPO .
 before_script:
