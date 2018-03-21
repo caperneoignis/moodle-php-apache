@@ -18,7 +18,7 @@ $requiredextensions = [
     'xmlrpc',
     'zip',
 ];
-
+$xdebug = getenv('XDEBUG', true) ?: getenv('XDEBUG');
 $buffer = '';;
 $missing = [];
 foreach($requiredextensions as $ext) {
@@ -26,7 +26,12 @@ foreach($requiredextensions as $ext) {
         $missing[] = $ext;
     }
 }
-
+//check if xdebug is set that we make sure it is loaded.
+if($xdebug && $xdebug != ""){
+	if (!extension_loaded($xdebug)) {
+        $missing[] = $xdebug;
+    }
+}
 $locale = 'en_AU.UTF-8';
 if (setlocale(LC_TIME, $locale) === false) {
     $missing[] = $locale;

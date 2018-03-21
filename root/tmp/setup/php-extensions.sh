@@ -44,8 +44,8 @@ docker-php-ext-install -j$(nproc) gd
 docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 docker-php-ext-install -j$(nproc) ldap
 
-pecl install memcached redis apcu igbinary xdebug
-docker-php-ext-enable memcached redis apcu igbinary xdebug
+pecl install memcached redis apcu igbinary ${XDEBUG}
+docker-php-ext-enable memcached redis apcu igbinary ${XDEBUG}
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 

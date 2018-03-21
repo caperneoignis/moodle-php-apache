@@ -1,7 +1,8 @@
 language: bash
 services: docker
 env:
-    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=latest_xdebug
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=latest XDEBUG=""
 install:
     - docker build -t $REPO .
 before_script:
@@ -14,7 +15,7 @@ script:
     - docker run --name test1 -d -e APACHE_WEB_ROOT -p 8001:80 -v $PWD/tests/fixtures:/var/www $REPO
     - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8001/test.php
-    - docker tag $REPO $REPO:latest
+    - docker tag $REPO $REPO:$TAG
 after_failure:
     - docker logs test0 && docker logs test1
 after_success:
