@@ -32,7 +32,8 @@ docker-php-ext-install -j$(nproc) \
     soap \
     xsl \
     xmlrpc \
-    zip
+    zip \
+    solr
 
 docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 docker-php-ext-install -j$(nproc) gd
@@ -40,8 +41,8 @@ docker-php-ext-install -j$(nproc) gd
 docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 docker-php-ext-install -j$(nproc) ldap
 
-pecl install solr memcached redis apcu igbinary
-docker-php-ext-enable solr memcached redis apcu igbinary
+pecl install memcached redis apcu igbinary
+docker-php-ext-enable memcached redis apcu igbinary
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
