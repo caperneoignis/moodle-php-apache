@@ -13,9 +13,9 @@ LIBS="locales libaio1 libcurl3 libgss3 libicu52 libpq5 libmemcached11 libmemcach
 apt-get update
 
 #Need to curl download lib file for dependencies.
-curl -O http://security.debian.org/debian-security/pool/updates/main/m/mysql-5.5/libmysqlclient18_5.5.59-0+deb8u1_amd64.deb
-dpkg --install libmysqlclient18_5.5.59-0+deb8u1_amd64.deb
-
+echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list
+apt-get update
+apt-get install -y --no-install-recommends libmysqlclient18
 #Now to do the normal install process.
 apt-get install -y --no-install-recommends $BUILD_PACKAGES $LIBS unzip ghostscript locales apt-transport-https
 echo 'Generating locales..'
