@@ -34,8 +34,8 @@ docker-php-ext-install -j$(nproc) gd
 docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 docker-php-ext-install -j$(nproc) ldap
 
-pecl install solr memcache redis mongodb igbinary apcu-4.0.11 memcached-2.2.0 xdebug-2.5.5
-docker-php-ext-enable solr memcache memcached redis mongodb apcu igbinary xdebug
+pecl install solr memcache redis mongodb igbinary apcu-4.0.11 memcached-2.2.0 ${XDEBUG_STRING}
+docker-php-ext-enable solr memcache memcached redis mongodb apcu igbinary ${XDEBUG}
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
