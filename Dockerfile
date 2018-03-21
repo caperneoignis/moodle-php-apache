@@ -1,7 +1,7 @@
 FROM php:5.6-apache
 
 ADD root/ /
-
+#ensure we are setting these for debug builds.
 ARG XDEBUG_STRING=""
 ARG XDEBUG=""
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
