@@ -18,12 +18,18 @@ $requiredextensions = [
     'xmlrpc',
     'zip',
 ];
-
+$xdebug = getenv('XDEBUG', true) ?: getenv('XDEBUG');
 $buffer = '';;
 $missing = [];
 foreach($requiredextensions as $ext) {
     if (!extension_loaded($ext)) {
         $missing[] = $ext;
+    }
+}
+//check if xdebug is set that we make sure it is loaded.
+if($xdebug && $xdebug != ""){
+	if (!extension_loaded($xdebug)) {
+        $missing[] = $xdebug;
     }
 }
 
