@@ -9,16 +9,14 @@ RUN chmod 777 /tmp && chmod +t /tmp
 RUN /tmp/setup/php-extensions.sh
 RUN /tmp/setup/oci8-extension.sh
 
-RUN apt-get update && apt-get install -y sudo wget git graphviz --no-install-recommends
-RUN wget https://github.com/jgm/pandoc/releases/download/2.1.2/pandoc-2.1.2-1-amd64.deb
-RUN dpkg -i pandoc-2.1.2-1-amd64.deb && rm -rf pandoc-2.1.2-1-amd64.deb
+RUN apt-get update && apt-get install -y sudo wget git --no-install-recommends
 
 
 RUN mkdir /var/www/moodledata && chown www-data /var/www/moodledata && \
     mkdir /var/www/phpunitdata && chown www-data /var/www/phpunitdata && \
     mkdir /var/www/behatdata && chown www-data /var/www/behatdata && \
     mkdir /var/www/behatfaildumps && chown www-data /var/www/behatfaildumps && \
-	  mkdir /tools_for_CI && chown www-data /tools_for_CI
+    mkdir /tools_for_CI && chown www-data /tools_for_CI
 	
 #overwrite old configs with custom configs with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
