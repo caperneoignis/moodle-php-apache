@@ -15,7 +15,9 @@ script:
     - docker run --name test1 -d -e APACHE_WEB_ROOT -e XDEBUG=$XDEBUG -p 8001:80 -v $PWD/tests/fixtures:/var/www $REPO
     - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8001/test.php
-    - docker tag $REPO $REPO:$TAG 
+    - VERSION=`docker exec test0 php -v | grep -Po '(?<=PHP )[^ ]+' | head -n1 | awk '{print $1;}'`
+    - docker tag $REPO $REPO:${TAG}
+    - if [[ ${XDEBUG} != "" ]]; do docker tag $REPO $REPO:${VERSION}${XDEBUG}; else; docker tag $REPO $REPO:${VERSION}; fi    
 after_failure:
     - docker logs test0 && docker logs test1
 after_success:
