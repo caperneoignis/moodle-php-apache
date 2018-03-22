@@ -1,8 +1,8 @@
 language: bash
 services: docker
 env:
-    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=7.0_xdebug
-    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=7.0 XDEBUG=""
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=7.0_pandoc_xdebug
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=7.0_pandoc XDEBUG=""
 install:
     - docker build --build-arg XDEBUG=$XDEBUG -t $REPO .
 before_script:
@@ -16,7 +16,7 @@ script:
     - docker exec test1 php /var/www/test.php
     - curl --fail http://127.0.0.1:8001/test.php
     - VERSION=`docker exec test0 php -v | grep -Po '(?<=PHP )[^ ]+' | head -n1 | awk '{print $1;}'`
-    - if [[ ${XDEBUG} != "" ]]; then docker tag $REPO $REPO:"${VERSION}_${XDEBUG}"; else docker tag $REPO $REPO:${VERSION}; fi
+    - if [[ ${XDEBUG} != "" ]]; then docker tag $REPO $REPO:"${VERSION}_pandoc_${XDEBUG}"; else docker tag $REPO $REPO:"${VERSION}_pandoc"; fi
     - docker tag $REPO $REPO:$TAG
 after_failure:
     - docker logs test0 && docker logs test1
