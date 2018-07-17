@@ -8,7 +8,7 @@ BUILD_PACKAGES="gettext libcurl4-openssl-dev libpq-dev default-libmysqlclient-de
     libxml2-dev libicu-dev libfreetype6-dev libjpeg62-turbo-dev libmemcached-dev \
     zlib1g-dev libpng-dev unixodbc-dev"
 
-LIBS="locales libaio1 libcurl3 libgss3 libicu52 default-libmysqlclient-dev libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc libmcrypt-dev"
+LIBS="locales libaio1 libcurl3 libgss3 libicu-dev default-libmysqlclient-dev libpq5 libmemcached11 libmemcachedutil2 libldap-2.4-2 libxml2 libxslt1.1 unixodbc libmcrypt-dev"
 
 apt-get update
 apt-get install -y --no-install-recommends $BUILD_PACKAGES $LIBS unzip ghostscript locales apt-transport-https
