@@ -45,8 +45,8 @@ curl https://packages.microsoft.com/config/debian/8/prod.list -o /etc/apt/source
 apt-get update
 ACCEPT_EULA=Y apt-get install -y msodbcsql
 
-#pecl install sqlsrv-4.3.0
-#docker-php-ext-enable sqlsrv
+pecl install sqlsrv-4.3.0
+docker-php-ext-enable sqlsrv
 
 # Keep our image size down..
 pecl clear-cache
