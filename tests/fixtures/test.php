@@ -1,5 +1,5 @@
 <?php
-
+//'oci8',
 $requiredextensions = [
     'apcu',
     'gd',
@@ -8,7 +8,6 @@ $requiredextensions = [
     'ldap',
     'memcached',
     'mysqli',
-    'oci8',
     'pgsql',
     'redis',
     'solr',
