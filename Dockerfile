@@ -7,7 +7,7 @@ ARG XDEBUG=""
 RUN chmod 777 /tmp && chmod +t /tmp
 # Setup the required extensions.
 RUN /tmp/setup/php-extensions.sh
-RUN /tmp/setup/oci8-extension.sh
+#RUN /tmp/setup/oci8-extension.sh
 
 RUN apt-get update && apt-get install -y sudo wget git graphviz --no-install-recommends
 RUN wget https://github.com/jgm/pandoc/releases/download/2.1.2/pandoc-2.1.2-1-amd64.deb
