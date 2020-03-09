@@ -2,7 +2,7 @@ language: bash
 services: docker
 env:
     # need to fix xdebug issue, by figuring out a way to pull it.
-    #- APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug-2.6.0 TAG=7.0_pandoc_xdebug
+    - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug TAG=7.0_pandoc_xdebug
     - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=7.0_pandoc XDEBUG=""
 install:
     - docker build --build-arg XDEBUG=$XDEBUG -t $REPO .
