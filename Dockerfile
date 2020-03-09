@@ -3,6 +3,7 @@ FROM php:7.0-apache
 ENV APACHE_WEB_ROOT="/var/www/html"
 ADD root/ /
 ARG XDEBUG=""
+ARG TAG=""
 # Fix the original permissions of /tmp, the PHP default upload tmp dir.
 RUN chmod 777 /tmp && chmod +t /tmp
 # Setup the required extensions.
