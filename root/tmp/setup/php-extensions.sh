@@ -38,6 +38,13 @@ docker-php-ext-install -j$(nproc) ldap
 pecl install -o -f redis
 
 pecl install solr memcached apcu igbinary ${XDEBUG}
+
+# Need to reset xdebug from version to just xdebug.
+if [[ "${TAG}" == "7.0_pandoc_xdebug"]]
+then
+    XDEBUG = "xdebug"
+fi
+
 docker-php-ext-enable solr memcached redis apcu igbinary ${XDEBUG}
 
 echo 'apc.enable_cli = On' >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
