@@ -40,9 +40,9 @@ pecl install -o -f redis
 pecl install solr memcached apcu igbinary ${XDEBUG}
 
 # Need to reset xdebug from version to just xdebug.
-if [[ "${TAG}" == "7.0_pandoc_xdebug"]]
+if [[ "${TAG}" == "7.0_pandoc_xdebug" ]]
 then
-    XDEBUG = "xdebug"
+    XDEBUG="xdebug";
 fi
 
 docker-php-ext-enable solr memcached redis apcu igbinary ${XDEBUG}
