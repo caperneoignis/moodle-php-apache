@@ -5,7 +5,7 @@ env:
     - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache XDEBUG=xdebug-2.6.0 TAG=7.0_pandoc_xdebug
     - APACHE_WEB_ROOT=/var/www REPO=caperneoignis/moodle-php-apache TAG=7.0_pandoc XDEBUG=""
 install:
-    - docker build --build-arg XDEBUG=$XDEBUG -t $REPO .
+    - docker build --build-arg XDEBUG=$XDEBUG --build-arg TAG=$TAG -t $REPO .
 before_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 script:
